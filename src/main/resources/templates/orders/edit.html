@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>주문 수정 폼</title>
+    <!-- 부트스트랩 CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="p-3 mb-2 bg-light text-dark">
+    <div class="container">
+        <th:block layout:fragment="bodyHeader" th:include="@{/fragments/bodyHeader}"></th:block>
+       <div th:each="order : ${orders}">
+        <form role="form" th:action="@{'/orders/edit/' + ${orderId}}" method="post">
+             <input type="hidden" th:value="${order.orderId}" name="orderId">
+                <div class="form-group">
+                    <h1>주문정보 수정</h1>
+                    <label for="member">주문회원</label>
+                    <select name="memberId" id="member" class="form-control">
+                        <option value="">회원선택</option>
+                        <option th:each="member : ${members}" th:value="${member.id}"
+                                th:text="${member.name}" th:selected="${order.memberId == member.id}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="item">상품명</label>
+                    <select name="itemId" id="item" class="form-control">
+                        <option value="">상품선택</option>
+                        <option th:each="item : ${items}" th:value="${item.id}"
+                                th:text="${item.name}" th:selected="${order.itemId == item.id}"></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="count">주문수량</label>
+                    <input type="number" name="count" class="form-control" id="count"
+                           placeholder="주문 수량을 입력하세요" th:value="${order.count}">
+                </div>
+               
+                <button type="submit" class="btn btn-primary">Submit</button>
+             </form>
+            </div>
+       
+        </div>
+        
+        <div th:replace="fragments/footer :: footer"></div>
+    
+</div>
+</body>
+</html>

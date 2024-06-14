@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+		xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<th:block layout:fragment="header" th:include="@{/fragments/header}"></th:block>
+
+<body>
+<div class="p-3 mb-2 bg-light text-dark">
+<div class="container">
+	<div th:replace="fragments/bodyHeader :: bodyHeader">
+		<h2 align=center>회원리스트</h2>
+	</div>
+	<div>
+	<table class="table talbe-striped">
+	<thead>
+	<tr>
+		<th>order_ID</th><th>회원_id</th><th>회원이름</th><th>상품_id</th><th>상품명</th><th>주문수량</th><th>주문일,시간</th><th></th>
+	</tr>
+	</thead>
+	<tbody>
+	<tr th:each="order :${orders}">
+		<td th:text="${order.order_Id}"></td> 
+		<td th:text="${order.member_Id}"></td>
+		<td th:text="${order.name}"></td>
+		<td th:text="${order.item_Id}"></td>
+		<td th:text="${order.pname}"></td>
+		<td th:text="${order.count}"></td>
+		<td th:text="${order.timestamp}"></td>
+			<td> <a th:href="@{'/orders/edit/' + ${order.order_Id}}"class="btn btn-primary" role="button">수정</a>
+	 		<a th:href="@{'/orders/delete/' + ${order.order_Id}}"class="btn btn-danger" role="button">삭제</a></td>
+	 </tr>
+	</tbody>
+	</table>
+	</div>
+	<div th:replace="fragments/footer :: footer"></div>
+</div>
+</div>
+</body>
